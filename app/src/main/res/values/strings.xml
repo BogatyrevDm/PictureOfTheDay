@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PictureOfTheDay</string>
+    <string name="search_wiki">Search Wiki</string>
+    <string name="woko_helper_text">Search in Wiki</string>
 </resources>
