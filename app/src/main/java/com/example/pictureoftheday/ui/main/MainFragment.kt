@@ -6,14 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
 import com.example.pictureoftheday.PictureOfTheDayData
 import com.example.pictureoftheday.R
 import com.example.pictureoftheday.databinding.MainFragmentBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class MainFragment : Fragment() {
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MainViewModel by lazy {
@@ -31,6 +35,17 @@ class MainFragment : Fragment() {
     ): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setBottomSheetBehavior(binding.bottomLayout.root)
+    }
+
+    private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+
     }
 
     override fun onDestroyView() {
@@ -56,6 +71,15 @@ class MainFragment : Fragment() {
                         error(R.drawable.ic_load_error_vector)
                         placeholder(R.drawable.ic_no_photo_vector)
                     }
+                    val title = serverResponseData.title
+                    val explanation = serverResponseData.explanation
+                    if (!title.isNullOrEmpty()) {
+                        binding.bottomLayout.bottomSheetDescriptionHeader.text = title
+                    }
+                    if (!explanation.isNullOrEmpty()) {
+                        binding.bottomLayout.bottomSheetDescription.text = explanation
+                    }
+
                 }
             }
             is PictureOfTheDayData.Loading -> {
