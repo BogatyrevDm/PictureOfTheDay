@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,13 +12,17 @@
             android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp">
+            android:paddingStart="@dimen/constraint_layout_padding_start"
+            android:paddingEnd="@dimen/constraint_layout_padding_end"
+            android:paddingLeft="@dimen/constraint_layout_padding_start"
+            android:paddingRight="@dimen/constraint_layout_padding_end"
+
+            >
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/textI_iput_layout_width"
                 android:layout_height="wrap_content"
                 android:hint="@string/search_wiki"
                 app:endIconCheckable="true"
