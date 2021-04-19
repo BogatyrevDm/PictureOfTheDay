@@ -1,35 +1,31 @@
-package com.example.pictureoftheday.ui.main
+package com.example.pictureoftheday
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.pictureoftheday.BuildConfig
-import com.example.pictureoftheday.PODRetrofitIml
-import com.example.pictureoftheday.PODServerResponseData
-import com.example.pictureoftheday.PictureOfTheDayData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel(
+class PictureOfTheDayViewModel(
     private val liveDataToObserve: MutableLiveData<PictureOfTheDayData> = MutableLiveData(),
     private val retrofitIml: PODRetrofitIml = PODRetrofitIml()
 ) : ViewModel(
 
 ) {
-    fun getData(): LiveData<PictureOfTheDayData> {
-        sendServerRequest()
+    fun getData(dayString:String): LiveData<PictureOfTheDayData> {
+        sendServerRequest(dayString)
         return liveDataToObserve
     }
 
-    private fun sendServerRequest() {
+    private fun sendServerRequest(dayString:String) {
         liveDataToObserve.value = PictureOfTheDayData.Loading(null)
         val apiKey: String = BuildConfig.NASA_API_KEY
 
         if (apiKey.isBlank()) {
             PictureOfTheDayData.Error(Throwable("You need API key"))
         } else {
-            retrofitIml.getRetrofitImpl().getPictureOfTheDay(apiKey).enqueue(object :
+            retrofitIml.getRetrofitImpl().getPictureOfTheDay(apiKey, dayString).enqueue(object :
                 Callback<PODServerResponseData> {
                 override fun onResponse(
                     call: Call<PODServerResponseData>,

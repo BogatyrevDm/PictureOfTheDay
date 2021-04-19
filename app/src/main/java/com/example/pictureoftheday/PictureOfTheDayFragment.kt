@@ -1,4 +1,4 @@
-package com.example.pictureoftheday.ui.main
+package com.example.pictureoftheday
 
 import android.content.Intent
 import android.net.Uri
@@ -12,22 +12,22 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
-import com.example.pictureoftheday.PictureOfTheDayData
-import com.example.pictureoftheday.R
 import com.example.pictureoftheday.databinding.MainFragmentBinding
+import com.example.pictureoftheday.utils.getStringDateFromEnum
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.chip.Chip
 
-class MainFragment : Fragment() {
+class PictureOfTheDayFragment : Fragment() {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
+    private val viewModel: PictureOfTheDayViewModel by lazy {
+        ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
     }
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = PictureOfTheDayFragment()
     }
 
 
@@ -43,9 +43,16 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setBottomSheetBehavior(binding.bottomLayout.root)
         binding.inputLayout.setEndIconOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW).apply{
-                data = Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
+                data =
+                    Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
             })
+        }
+        binding.chipGroup.setOnCheckedChangeListener { chipGroup, position ->
+            chipGroup.findViewById<Chip>(position)?.let {
+                val day = Days.values()[position-1]
+                viewModel.getData(getStringDateFromEnum(day))
+            }
         }
     }
 
@@ -62,7 +69,7 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.getData().observe(viewLifecycleOwner, { renderData(it) })
+        viewModel.getData(getStringDateFromEnum(Days.YESTERDAY)).observe(viewLifecycleOwner, { renderData(it) })
     }
 
     private fun renderData(data: PictureOfTheDayData?) {
@@ -74,7 +81,7 @@ class MainFragment : Fragment() {
                     toast("Link is empty")
                 } else {
                     binding.imageView.load(url) {
-                        lifecycle(this@MainFragment)
+                        lifecycle(this@PictureOfTheDayFragment)
                         error(R.drawable.ic_load_error_vector)
                         placeholder(R.drawable.ic_no_photo_vector)
                     }
