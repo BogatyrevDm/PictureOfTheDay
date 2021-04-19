@@ -2,4 +2,7 @@
     <string name="app_name">PictureOfTheDay</string>
     <string name="search_wiki">Search Wiki</string>
     <string name="woko_helper_text">Search in Wiki</string>
+    <string name="day_before_yesterday_text">Day before yesterday</string>
+    <string name="yesterday_text">Yesterday</string>
+    <string name="today_text">Today</string>
 </resources>
