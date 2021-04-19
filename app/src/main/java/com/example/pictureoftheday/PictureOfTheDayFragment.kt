@@ -69,7 +69,7 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.getData(getStringDateFromEnum(Days.YESTERDAY)).observe(viewLifecycleOwner, { renderData(it) })
+        viewModel.getData(getStringDateFromEnum(Days.TODAY)).observe(viewLifecycleOwner, { renderData(it) })
     }
 
     private fun renderData(data: PictureOfTheDayData?) {
