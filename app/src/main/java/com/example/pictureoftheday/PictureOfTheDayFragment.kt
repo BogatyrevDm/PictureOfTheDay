@@ -50,7 +50,7 @@ class PictureOfTheDayFragment : Fragment() {
         }
         binding.chipGroup.setOnCheckedChangeListener { chipGroup, position ->
             chipGroup.findViewById<Chip>(position)?.let {
-                val day = Days.values()[position-1]
+                val day = Days.values()[position - 1]
                 viewModel.getData(getStringDateFromEnum(day))
             }
         }
@@ -69,14 +69,16 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.getData(getStringDateFromEnum(Days.TODAY)).observe(viewLifecycleOwner, { renderData(it) })
+        viewModel.getData(getStringDateFromEnum(Days.TODAY))
+            .observe(viewLifecycleOwner, { renderData(it) })
     }
 
     private fun renderData(data: PictureOfTheDayData?) {
         when (data) {
             is PictureOfTheDayData.Success -> {
                 val serverResponseData = data.serverData
-                val url = serverResponseData.url
+                val url =
+                    if (serverResponseData.mediaType == "image") serverResponseData.url else serverResponseData.thumbnailUrl
                 if (url.isNullOrEmpty()) {
                     toast("Link is empty")
                 } else {

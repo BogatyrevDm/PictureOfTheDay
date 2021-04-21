@@ -8,6 +8,7 @@ data class PODServerResponseData(
     @field:SerializedName("explanation") val explanation: String?,
     @field:SerializedName("media_type") val mediaType: String?,
     @field:SerializedName("title") val title: String?,
-    @field:SerializedName("url") val url: String?
+    @field:SerializedName("url") val url: String?,
+    @field:SerializedName("thumbnail_url") val thumbnailUrl: String?
 
 )
