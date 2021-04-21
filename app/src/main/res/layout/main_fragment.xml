@@ -13,8 +13,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="@dimen/constraint_layout_padding_start"
-            android:paddingEnd="@dimen/constraint_layout_padding_end"
             android:paddingLeft="@dimen/constraint_layout_padding_start"
+            android:paddingEnd="@dimen/constraint_layout_padding_end"
             android:paddingRight="@dimen/constraint_layout_padding_end"
 
             >
@@ -84,5 +84,12 @@
     <include
         android:id="@+id/bottom_layout"
         layout="@layout/bottom_sheet_layout" />
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottom_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="?attr/colorAccent"
+        android:layout_gravity="bottom"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
