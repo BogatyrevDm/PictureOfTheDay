@@ -21,26 +21,14 @@
 
     <TextView
         android:id="@+id/bottom_sheet_description_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/description_header_padding_start"
-        android:paddingEnd="@dimen/description_header_padding_end"
-        android:paddingLeft="@dimen/description_header_padding_start"
-        android:paddingRight="@dimen/description_header_padding_end"
-        android:textColor="@color/description_header_text_color"
-        android:textStyle="bold"
+        style="@style/header_text_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottom_sheet_line" />
 
     <TextView
         android:id="@+id/bottom_sheet_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/description_padding_start"
-        android:paddingEnd="@dimen/description_padding_end"
-        android:paddingLeft="@dimen/description_padding_start"
-        android:paddingRight="@dimen/description_padding_end"
+        style="@style/text_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottom_sheet_description_header" />
