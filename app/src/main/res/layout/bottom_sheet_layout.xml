@@ -4,7 +4,7 @@
     android:id="@+id/bottom_sheet_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bottom_sheet_background_color"
+    android:background="?attr/colorSurface"
     app:behavior_hideable="true"
     app:behavior_peekHeight="@dimen/bottom_sheet_peek_height"
 
@@ -21,26 +21,14 @@
 
     <TextView
         android:id="@+id/bottom_sheet_description_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/description_header_padding_start"
-        android:paddingEnd="@dimen/description_header_padding_end"
-        android:paddingLeft="@dimen/description_header_padding_start"
-        android:paddingRight="@dimen/description_header_padding_end"
-        android:textColor="@color/description_header_text_color"
-        android:textStyle="bold"
+        style="@style/header_text_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottom_sheet_line" />
 
     <TextView
         android:id="@+id/bottom_sheet_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/description_padding_start"
-        android:paddingEnd="@dimen/description_padding_end"
-        android:paddingLeft="@dimen/description_padding_start"
-        android:paddingRight="@dimen/description_padding_end"
+        style="@style/text_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottom_sheet_description_header" />

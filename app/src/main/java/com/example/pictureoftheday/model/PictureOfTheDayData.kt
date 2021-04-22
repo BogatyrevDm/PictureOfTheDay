@@ -1,4 +1,4 @@
-package com.example.pictureoftheday
+package com.example.pictureoftheday.model
 
 sealed class PictureOfTheDayData {
     data class Success(val serverData: PODServerResponseData) : PictureOfTheDayData()

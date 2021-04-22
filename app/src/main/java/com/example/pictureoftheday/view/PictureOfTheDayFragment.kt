@@ -1,19 +1,20 @@
-package com.example.pictureoftheday
+package com.example.pictureoftheday.view
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
+import com.example.pictureoftheday.*
 import com.example.pictureoftheday.databinding.MainFragmentBinding
+import com.example.pictureoftheday.model.Days
+import com.example.pictureoftheday.model.PictureOfTheDayData
 import com.example.pictureoftheday.utils.getStringDateFromEnum
+import com.example.pictureoftheday.viewmodel.PictureOfTheDayViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 
@@ -42,6 +43,7 @@ class PictureOfTheDayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setBottomSheetBehavior(binding.bottomLayout.root)
+        setBottomBar(view)
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data =
@@ -50,11 +52,20 @@ class PictureOfTheDayFragment : Fragment() {
         }
         binding.chipGroup.setOnCheckedChangeListener { chipGroup, position ->
             chipGroup.findViewById<Chip>(position)?.let {
-                val day = Days.values()[position-1]
+                val day = Days.values()[getChipPositionById(it.id)]
                 viewModel.getData(getStringDateFromEnum(day))
             }
         }
     }
+
+    private fun getChipPositionById(id: Int): Int =
+        when (id) {
+            R.id.chip_1 -> 0
+            R.id.chip_2 -> 1
+            R.id.chip_3 -> 2
+            else -> 0
+        }
+
 
     private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
@@ -69,14 +80,38 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.getData(getStringDateFromEnum(Days.TODAY)).observe(viewLifecycleOwner, { renderData(it) })
+        viewModel.getData(getStringDateFromEnum(Days.TODAY))
+            .observe(viewLifecycleOwner, { renderData(it) })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_bottom_bar, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.app_bar_settings -> {
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.container, SettingsFragment.newInstance())?.addToBackStack(null)
+                    ?.commit()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun setBottomBar(view: View) {
+        val context = activity as MainActivity
+        context.setSupportActionBar(binding.bottomAppBar)
+        setHasOptionsMenu(true)
     }
 
     private fun renderData(data: PictureOfTheDayData?) {
         when (data) {
             is PictureOfTheDayData.Success -> {
                 val serverResponseData = data.serverData
-                val url = serverResponseData.url
+                val url =
+                    if (serverResponseData.mediaType == "image") serverResponseData.url else serverResponseData.thumbnailUrl
                 if (url.isNullOrEmpty()) {
                     toast("Link is empty")
                 } else {

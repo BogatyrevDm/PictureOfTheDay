@@ -1,8 +1,15 @@
 <resources>
-    <string name="app_name">PictureOfTheDay</string>
+    <string name="app_name">Picture of the day</string>
     <string name="search_wiki">Search Wiki</string>
     <string name="woko_helper_text">Search in Wiki</string>
     <string name="day_before_yesterday_text">Day before yesterday</string>
     <string name="yesterday_text">Yesterday</string>
     <string name="today_text">Today</string>
+    <string name="menu_settings_text">Settings</string>
+    <string name="main_theme_text">Main theme</string>
+    <string name="red_theme_text">Red theme</string>
+    <string name="choose_theme_text">Choose theme:</string>
+    <string name="main_theme">Main Theme</string>
+    <string name="red_theme">Red Theme</string>
+    <string name="blue_theme_text">Blue theme</string>
 </resources>

@@ -1,6 +1,6 @@
 package com.example.pictureoftheday.utils
 
-import com.example.pictureoftheday.Days
+import com.example.pictureoftheday.model.Days
 import java.text.SimpleDateFormat
 import java.util.*
 

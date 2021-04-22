@@ -11,4 +11,22 @@
     <color name="bottom_sheet_background_color">#f6f6fa</color>
     <color name="line_view_background_color">#663b4351</color>
     <color name="description_header_text_color">#000</color>
+    <color name="red_primary_dark">#7f0000</color>
+    <color name="red_primary">#b71c1c</color>
+    <color name="red_primary_light">#f05545</color>
+    <color name="red_secondary_dark">#ef5350</color>
+    <color name="red_secondary">#b61827</color>
+    <color name="red_secondary_light">#ff867c</color>
+    <color name="red_background">#ffebee</color>
+    <color name="red_surface">#ffcdd2</color>
+
+
+    <color name="blue_primary_dark">#002f6c</color>
+    <color name="blue_primary">#01579b</color>
+    <color name="blue_primary_light">#4f83cc</color>
+    <color name="blue_secondary_dark">#0093c4</color>
+    <color name="blue_secondary">#4fc3f7</color>
+    <color name="blue_secondary_light">#8bf6ff</color>
+    <color name="blue_background">#e1f5fe</color>
+    <color name="blue_surface">#b3e5fc</color>
 </resources>
