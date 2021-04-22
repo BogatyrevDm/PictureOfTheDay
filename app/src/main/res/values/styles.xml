@@ -18,4 +18,14 @@
         <item name="android:paddingEnd">@dimen/description_padding_end</item>
         <item name="android:paddingRight">@dimen/description_padding_end</item>
     </style>
+    <style name="settings_button_style">
+        <item name="android:layout_marginStart">@dimen/button_margin_end</item>
+        <item name="android:layout_marginLeft">@dimen/button_margin_end</item>
+    </style>
+
+    <style name="settings_text_view_style">
+        <item name="android:layout_marginStart">@dimen/tv_margin_end</item>
+        <item name="android:layout_marginLeft">@dimen/tv_margin_end</item>
+    </style>
+
 </resources>
