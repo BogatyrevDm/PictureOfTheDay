@@ -1,4 +1,4 @@
-package com.example.pictureoftheday
+package com.example.pictureoftheday.view
 
 import android.content.Context
 import android.util.AttributeSet

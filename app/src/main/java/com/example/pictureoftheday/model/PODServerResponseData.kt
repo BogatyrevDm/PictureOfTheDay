@@ -1,4 +1,4 @@
-package com.example.pictureoftheday
+package com.example.pictureoftheday.model
 
 import com.google.gson.annotations.SerializedName
 

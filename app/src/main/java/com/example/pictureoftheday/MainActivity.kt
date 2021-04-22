@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pictureoftheday.utils.*
+import com.example.pictureoftheday.view.PictureOfTheDayFragment
 
 class MainActivity : AppCompatActivity() {
 

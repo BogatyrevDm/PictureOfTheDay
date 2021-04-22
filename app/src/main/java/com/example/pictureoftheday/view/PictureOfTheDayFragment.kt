@@ -1,4 +1,4 @@
-package com.example.pictureoftheday
+package com.example.pictureoftheday.view
 
 import android.content.Intent
 import android.net.Uri
@@ -9,8 +9,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
+import com.example.pictureoftheday.*
 import com.example.pictureoftheday.databinding.MainFragmentBinding
+import com.example.pictureoftheday.model.Days
+import com.example.pictureoftheday.model.PictureOfTheDayData
 import com.example.pictureoftheday.utils.getStringDateFromEnum
+import com.example.pictureoftheday.viewmodel.PictureOfTheDayViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 

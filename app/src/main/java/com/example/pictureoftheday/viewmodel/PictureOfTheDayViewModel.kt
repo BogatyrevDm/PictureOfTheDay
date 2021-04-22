@@ -1,8 +1,12 @@
-package com.example.pictureoftheday
+package com.example.pictureoftheday.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.pictureoftheday.BuildConfig
+import com.example.pictureoftheday.model.PODRetrofitIml
+import com.example.pictureoftheday.model.PODServerResponseData
+import com.example.pictureoftheday.model.PictureOfTheDayData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
