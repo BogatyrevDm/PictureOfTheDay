@@ -48,11 +48,20 @@ class PictureOfTheDayFragment : Fragment() {
         }
         binding.chipGroup.setOnCheckedChangeListener { chipGroup, position ->
             chipGroup.findViewById<Chip>(position)?.let {
-                val day = Days.values()[position - 1]
+                val day = Days.values()[getChipPositionById(it.id)]
                 viewModel.getData(getStringDateFromEnum(day))
             }
         }
     }
+
+    private fun getChipPositionById(id: Int): Int =
+        when (id) {
+            R.id.chip_1 -> 0
+            R.id.chip_2 -> 1
+            R.id.chip_3 -> 2
+            else -> 0
+        }
+
 
     private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
