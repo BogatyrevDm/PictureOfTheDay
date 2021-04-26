@@ -12,4 +12,8 @@
     <string name="main_theme">Main Theme</string>
     <string name="red_theme">Red Theme</string>
     <string name="blue_theme_text">Blue theme</string>
+    <string name="menu_weather_text">Weather</string>
+    <string name="menu_mars_text">Mars</string>
+    <string name="menu_earth_text">Earth</string>
+    <string name="menu_pod_text">Picture of the day</string>
 </resources>

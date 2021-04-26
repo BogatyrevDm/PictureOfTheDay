@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
 import com.example.pictureoftheday.*
-import com.example.pictureoftheday.databinding.MainFragmentBinding
+import com.example.pictureoftheday.databinding.PictureOfTheDayFragmentBinding
 import com.example.pictureoftheday.model.Days
 import com.example.pictureoftheday.model.PictureOfTheDayData
 import com.example.pictureoftheday.utils.getStringDateFromEnum
@@ -21,7 +21,7 @@ import com.google.android.material.chip.Chip
 class PictureOfTheDayFragment : Fragment() {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
-    private var _binding: MainFragmentBinding? = null
+    private var _binding: PictureOfTheDayFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
@@ -36,7 +36,7 @@ class PictureOfTheDayFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = MainFragmentBinding.inflate(inflater, container, false)
+        _binding = PictureOfTheDayFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -86,12 +86,12 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_bottom_bar, menu)
+        inflater.inflate(R.menu.menu_bottom_navigation_view, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.app_bar_settings -> {
+            R.id.bottom_view_settings -> {
                 activity?.supportFragmentManager?.beginTransaction()
                     ?.replace(R.id.container, SettingsFragment.newInstance())?.addToBackStack(null)
                     ?.commit()
