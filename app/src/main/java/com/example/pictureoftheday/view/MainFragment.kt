@@ -19,14 +19,14 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.supportFragmentManager?.beginTransaction()
-            ?.replace(R.id.main_fragment_container, PictureOfTheDayFragment.newInstance())?.addToBackStack(null)
+            ?.replace(R.id.main_fragment_container, PictureOfTheDayFragmentMain.newInstance())?.addToBackStack(null)
             ?.commit()
         binding.bottomNavigationView.setOnNavigationItemSelectedListener { item ->
 
             when (item.itemId) {
                 R.id.bottom_view_picture_of_the_day -> {
                     activity?.supportFragmentManager?.beginTransaction()
-                        ?.replace(R.id.main_fragment_container, PictureOfTheDayFragment.newInstance())?.addToBackStack(null)
+                        ?.replace(R.id.main_fragment_container, PictureOfTheDayFragmentMain.newInstance())?.addToBackStack(null)
                         ?.commit()
                     true
                 }
@@ -47,7 +47,7 @@ class MainFragment : Fragment() {
                 }
                 else -> {
                     activity?.supportFragmentManager?.beginTransaction()
-                        ?.replace(R.id.main_fragment_container, PictureOfTheDayFragment.newInstance())?.addToBackStack(null)
+                        ?.replace(R.id.main_fragment_container, PictureOfTheDayFragmentMain.newInstance())?.addToBackStack(null)
                         ?.commit()
                     true
                 }
