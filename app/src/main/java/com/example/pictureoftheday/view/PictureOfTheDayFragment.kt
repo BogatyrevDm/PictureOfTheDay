@@ -43,7 +43,6 @@ class PictureOfTheDayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setBottomSheetBehavior(binding.bottomLayout.root)
-        setBottomBar(view)
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data =
@@ -82,28 +81,6 @@ class PictureOfTheDayFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel.getData(getStringDateFromEnum(Days.TODAY))
             .observe(viewLifecycleOwner, { renderData(it) })
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_bottom_navigation_view, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.bottom_view_settings -> {
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.container, SettingsFragment.newInstance())?.addToBackStack(null)
-                    ?.commit()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    private fun setBottomBar(view: View) {
-        val context = activity as MainActivity
-        context.setSupportActionBar(binding.bottomAppBar)
-        setHasOptionsMenu(true)
     }
 
     private fun renderData(data: PictureOfTheDayData?) {
