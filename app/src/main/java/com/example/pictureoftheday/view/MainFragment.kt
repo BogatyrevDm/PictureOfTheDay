@@ -1,36 +1,43 @@
 package com.example.pictureoftheday.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.pictureoftheday.R
 import com.example.pictureoftheday.databinding.FragmentMainBinding
+import com.example.pictureoftheday.view.epic.EPICMainFragment
+import com.example.pictureoftheday.view.pod.PODMainFragment
+import com.example.pictureoftheday.view.settings.SettingsFragment
 
 class MainFragment : Fragment() {
     var _binding: FragmentMainBinding? = null
     val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity?.supportFragmentManager?.beginTransaction()
-            ?.replace(R.id.main_fragment_container, PictureOfTheDayFragmentMain.newInstance())?.addToBackStack(null)
-            ?.commit()
+        if (savedInstanceState == null) {
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.main_fragment_container, PODMainFragment.newInstance())
+                ?.addToBackStack(null)
+                ?.commit()
+        }
         binding.bottomNavigationView.setOnNavigationItemSelectedListener { item ->
 
             when (item.itemId) {
                 R.id.bottom_view_picture_of_the_day -> {
                     activity?.supportFragmentManager?.beginTransaction()
-                        ?.replace(R.id.main_fragment_container, PictureOfTheDayFragmentMain.newInstance())?.addToBackStack(null)
+                        ?.replace(R.id.main_fragment_container, PODMainFragment.newInstance())
+                        ?.addToBackStack(null)
                         ?.commit()
                     true
                 }
                 R.id.bottom_view_earth -> {
+                    activity?.supportFragmentManager?.beginTransaction()
+                        ?.replace(R.id.main_fragment_container, EPICMainFragment.newInstance())
+                        ?.addToBackStack(null)
+                        ?.commit()
                     true
                 }
                 R.id.bottom_view_mars -> {
@@ -41,13 +48,15 @@ class MainFragment : Fragment() {
                 }
                 R.id.bottom_view_settings -> {
                     activity?.supportFragmentManager?.beginTransaction()
-                        ?.replace(R.id.main_fragment_container, SettingsFragment.newInstance())?.addToBackStack(null)
+                        ?.replace(R.id.main_fragment_container, SettingsFragment.newInstance())
+                        ?.addToBackStack(null)
                         ?.commit()
                     true
                 }
                 else -> {
                     activity?.supportFragmentManager?.beginTransaction()
-                        ?.replace(R.id.main_fragment_container, PictureOfTheDayFragmentMain.newInstance())?.addToBackStack(null)
+                        ?.replace(R.id.main_fragment_container, PODMainFragment.newInstance())
+                        ?.addToBackStack(null)
                         ?.commit()
                     true
                 }

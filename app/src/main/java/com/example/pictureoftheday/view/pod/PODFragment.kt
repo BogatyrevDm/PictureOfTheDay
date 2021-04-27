@@ -1,36 +1,35 @@
-package com.example.pictureoftheday.view
+package com.example.pictureoftheday.view.pod
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
 import com.example.pictureoftheday.R
-import com.example.pictureoftheday.databinding.FragmentPictureOfTheDayBinding
-import com.example.pictureoftheday.databinding.PictureOfTheDayFragmentMainBinding
+import com.example.pictureoftheday.databinding.FragmentPodBinding
 import com.example.pictureoftheday.model.Days
-import com.example.pictureoftheday.model.PictureOfTheDayData
+import com.example.pictureoftheday.model.pod.PODData
 import com.example.pictureoftheday.utils.getStringDateFromEnum
-import com.example.pictureoftheday.viewmodel.PictureOfTheDayViewModel
+import com.example.pictureoftheday.viewmodel.pod.PODViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 private const val ARG_DAY = "DAY"
 
-class PictureOfTheDayFragment : Fragment() {
+class PODFragment : Fragment() {
     private var day: Days? = null
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
-    private var _binding: FragmentPictureOfTheDayBinding? = null
+    private var _binding: FragmentPodBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: PictureOfTheDayViewModel by lazy {
-        ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
+    private val viewModel: PODViewModel by lazy {
+        ViewModelProvider(this).get(PODViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +49,7 @@ class PictureOfTheDayFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentPictureOfTheDayBinding.inflate(inflater, container, false)
+        _binding = FragmentPodBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -61,9 +60,9 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private fun renderData(data: PictureOfTheDayData?) {
+    private fun renderData(data: PODData?) {
         when (data) {
-            is PictureOfTheDayData.Success -> {
+            is PODData.Success -> {
                 val serverResponseData = data.serverData
                 val url =
                     if (serverResponseData.mediaType == "image") serverResponseData.url else serverResponseData.thumbnailUrl
@@ -75,12 +74,12 @@ class PictureOfTheDayFragment : Fragment() {
                         binding.webView.isVisible = false
                         binding.imageView.isVisible = true
                         binding.imageView.load(serverResponseData.url) {
-                            lifecycle(this@PictureOfTheDayFragment)
+                            lifecycle(this@PODFragment)
                             error(R.drawable.ic_load_error_vector)
                             placeholder(R.drawable.ic_no_photo_vector)
                         }
 
-                    } else{
+                    } else {
                         binding.webView.isVisible = true
                         binding.imageView.isVisible = false
                         binding.webView.settings.javaScriptEnabled = true
@@ -97,10 +96,10 @@ class PictureOfTheDayFragment : Fragment() {
 
                 }
             }
-            is PictureOfTheDayData.Loading -> {
+            is PODData.Loading -> {
 
             }
-            is PictureOfTheDayData.Error -> {
+            is PODData.Error -> {
                 toast(data.error.message)
             }
         }
@@ -127,7 +126,7 @@ class PictureOfTheDayFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(day: Days) =
-            PictureOfTheDayFragment().apply {
+            PODFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(ARG_DAY, day)
                 }

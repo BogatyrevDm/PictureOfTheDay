@@ -1,4 +1,4 @@
-package com.example.pictureoftheday.view
+package com.example.pictureoftheday.view.pod
 
 import android.content.Intent
 import android.net.Uri
@@ -8,15 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.pictureoftheday.R
-import com.example.pictureoftheday.databinding.PictureOfTheDayFragmentMainBinding
+import com.example.pictureoftheday.databinding.FragmentPodMainBinding
 
-class PictureOfTheDayFragmentMain : Fragment() {
+class PODMainFragment : Fragment() {
 
-    private var _binding: PictureOfTheDayFragmentMainBinding? = null
+    private var _binding: FragmentPodMainBinding? = null
     private val binding get() = _binding!!
 
     companion object {
-        fun newInstance() = PictureOfTheDayFragmentMain()
+        fun newInstance() = PODMainFragment()
     }
 
 
@@ -24,13 +24,13 @@ class PictureOfTheDayFragmentMain : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = PictureOfTheDayFragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentPodMainBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewPager.adapter = ViewPagerAdapter(childFragmentManager)
+        binding.viewPager.adapter = PODViewPagerAdapter(childFragmentManager)
         binding.viewPager.currentItem = 2
         binding.tabLayout.setupWithViewPager(binding.viewPager)
         binding.tabLayout.getTabAt(0)?.text = context?.getString(R.string.day_before_yesterday_text)
