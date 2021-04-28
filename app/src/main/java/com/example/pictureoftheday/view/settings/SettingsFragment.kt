@@ -30,7 +30,6 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initThemeChooser()
-        initButtons()
     }
 
     private fun initThemeChooser() {
@@ -57,32 +56,6 @@ class SettingsFragment : Fragment() {
 
         }
     }
-
-    private fun initButtons() {
-        binding.buttonOk.setOnClickListener {
-            val activityMain = activity as MainActivity
-            activityMain.apply {
-                if (themeSaved != themeChoosen) {
-                    themeSaved = themeChoosen
-                    setAppTheme()
-                }
-                supportFragmentManager?.popBackStack()
-            }
-
-        }
-        binding.buttonCancel.setOnClickListener {
-            val activityMain = activity as MainActivity
-            activityMain.apply {
-                if (themeSaved != themeChoosen) {
-                    themeChoosen = themeSaved
-                    setAppTheme()
-                    recreate()
-                }
-                supportFragmentManager?.popBackStack()
-            }
-        }
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

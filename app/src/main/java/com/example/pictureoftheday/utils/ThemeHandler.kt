@@ -3,7 +3,6 @@ package com.example.pictureoftheday.utils
 import com.example.pictureoftheday.R
 
 const val APP_THEME_CHOOSEN = "APP_THEME_CHOOSEN"
-const val APP_THEME_SAVED = "APP_THEME_SAVED"
 const val MAIN_THEME = 0
 const val RED_THEME = 1
 const val BLUE_THEME = 2

@@ -44,21 +44,4 @@
 
     </RadioGroup>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_ok"
-        style="@style/settings_button_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@android:string/ok"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rb_group" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_cancel"
-        style="@style/settings_button_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@android:string/cancel"
-        app:layout_constraintStart_toEndOf="@id/button_ok"
-        app:layout_constraintTop_toTopOf="@id/button_ok" />
 </androidx.constraintlayout.widget.ConstraintLayout>
