@@ -59,6 +59,14 @@ class PODFragment : Fragment() {
             .observe(viewLifecycleOwner, { renderData(it) })
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.webView.onResume()
+    }
+    override fun onPause() {
+        super.onPause()
+        binding.webView.onPause()
+    }
     @SuppressLint("SetJavaScriptEnabled")
     private fun renderData(data: PODData?) {
         when (data) {
