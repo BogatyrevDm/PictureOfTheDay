@@ -7,6 +7,8 @@
     <dimen name="description_header_padding_end">10dp</dimen>
     <dimen name="description_padding_start">10dp</dimen>
     <dimen name="description_padding_end">10dp</dimen>
+    <dimen name="wiki_padding_start">5dp</dimen>
+    <dimen name="wiki_padding_end">5dp</dimen>
     <dimen name="constraint_layout_padding_start">10dp</dimen>
     <dimen name="constraint_layout_padding_end">10dp</dimen>
     <dimen name="text_input_layout_width">0dp</dimen>
