@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
@@ -16,6 +17,7 @@ import com.example.pictureoftheday.R
 import com.example.pictureoftheday.databinding.FragmentPodBinding
 import com.example.pictureoftheday.model.Days
 import com.example.pictureoftheday.model.pod.PODData
+import com.example.pictureoftheday.utils.BeginDelayedTransition
 import com.example.pictureoftheday.utils.getStringDateFromEnum
 import com.example.pictureoftheday.viewmodel.pod.PODViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -31,7 +33,7 @@ class PODFragment : Fragment() {
     private val viewModel: PODViewModel by lazy {
         ViewModelProvider(this).get(PODViewModel::class.java)
     }
-
+    private var isExpanded = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -42,7 +44,16 @@ class PODFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setBottomSheetBehavior(binding.bottomLayout.root)
-
+        binding.imageView.setOnClickListener {
+            BeginDelayedTransition(binding.podContainer)
+            isExpanded = !isExpanded
+            val params: ViewGroup.LayoutParams = binding.imageView.layoutParams
+            params.height =
+                if (isExpanded) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
+            binding.imageView.layoutParams = params
+            binding.imageView.scaleType =
+                if (isExpanded) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
+        }
     }
 
     override fun onCreateView(
@@ -63,10 +74,12 @@ class PODFragment : Fragment() {
         super.onResume()
         binding.webView.onResume()
     }
+
     override fun onPause() {
         super.onPause()
         binding.webView.onPause()
     }
+
     @SuppressLint("SetJavaScriptEnabled")
     private fun renderData(data: PODData?) {
         when (data) {

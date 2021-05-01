@@ -6,14 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".view.pod.PODFragment">
 
-    <com.example.pictureoftheday.view.EquilateralImageView
-        android:id="@+id/image_view"
+    <FrameLayout
+        android:id="@+id/pod_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
-        app:srcCompat="@drawable/ic_no_photo_vector" />
+        android:layout_height="match_parent">
+
+        <com.example.pictureoftheday.view.EquilateralImageView
+            android:id="@+id/image_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:srcCompat="@drawable/ic_no_photo_vector" />
+    </FrameLayout>
 
     <WebView
         android:id="@+id/web_view"
