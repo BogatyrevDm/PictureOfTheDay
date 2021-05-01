@@ -16,4 +16,6 @@
     <string name="menu_mars_text">Mars</string>
     <string name="menu_earth_text">Earth</string>
     <string name="menu_pod_text">Picture of the day</string>
+    <string name="show_description">Show description</string>
+    <string name="hide_description">Hide description</string>
 </resources>
