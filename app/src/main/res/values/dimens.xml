@@ -18,4 +18,5 @@
     <dimen name="date_text_size">20sp</dimen>
     <dimen name="tap_text_size">15sp</dimen>
     <dimen name="tap_padding_bottom">5dp</dimen>
+    <dimen name="constraint_padding_bottom">83dp</dimen>
 </resources>

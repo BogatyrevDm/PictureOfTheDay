@@ -5,7 +5,7 @@
     android:id="@+id/constraint_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="83dp"
+    android:paddingBottom="@dimen/constraint_padding_bottom"
     tools:context=".view.pod.PODFragment">
 
     <com.example.pictureoftheday.view.EquilateralImageView
