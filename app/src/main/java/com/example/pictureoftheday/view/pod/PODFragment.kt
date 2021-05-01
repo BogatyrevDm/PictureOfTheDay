@@ -1,26 +1,34 @@
 package com.example.pictureoftheday.view.pod
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
+import android.transition.ChangeBounds
+import android.transition.TransitionManager
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
 import com.example.pictureoftheday.R
-import com.example.pictureoftheday.databinding.FragmentPodBinding
+import com.example.pictureoftheday.databinding.FragmentPodStartBinding
 import com.example.pictureoftheday.model.Days
 import com.example.pictureoftheday.model.pod.PODData
 import com.example.pictureoftheday.utils.BeginDelayedTransition
 import com.example.pictureoftheday.utils.getStringDateFromEnum
+import com.example.pictureoftheday.utils.getStringDateWithMonthFromEnum
 import com.example.pictureoftheday.viewmodel.pod.PODViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+
 
 private const val ARG_DAY = "DAY"
 
@@ -28,12 +36,14 @@ class PODFragment : Fragment() {
     private var day: Days? = null
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
-    private var _binding: FragmentPodBinding? = null
+    private var _binding: FragmentPodStartBinding? = null
     private val binding get() = _binding!!
     private val viewModel: PODViewModel by lazy {
         ViewModelProvider(this).get(PODViewModel::class.java)
     }
-    private var isExpanded = false
+    private var isImageExpanded = false
+    private var isDescriptionShown = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -41,26 +51,57 @@ class PODFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setBottomSheetBehavior(binding.bottomLayout.root)
         binding.imageView.setOnClickListener {
-            BeginDelayedTransition(binding.podContainer)
-            isExpanded = !isExpanded
+            BeginDelayedTransition(binding.constraintContainer)
+            isImageExpanded = !isImageExpanded
             val params: ViewGroup.LayoutParams = binding.imageView.layoutParams
             params.height =
-                if (isExpanded) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
+                if (isImageExpanded) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
             binding.imageView.layoutParams = params
             binding.imageView.scaleType =
-                if (isExpanded) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
+                if (isImageExpanded) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
         }
+        binding.tap.setOnClickListener {
+            if (isDescriptionShown) hideDescription() else showDescription()
+            isDescriptionShown = !isDescriptionShown
+        }
+        day?.let {
+            binding.date.text = getStringDateWithMonthFromEnum(it)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    private fun showDescription() {
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(activity, R.layout.fragment_pod_end)
+        val transition = ChangeBounds()
+        transition.interpolator = AnticipateOvershootInterpolator(1.0f)
+        transition.duration = 1200
+        TransitionManager.beginDelayedTransition(binding.constraintContainer, transition)
+        constraintSet.applyTo(binding.constraintContainer)
+        binding.tap.text = getString(R.string.hide_description)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    private fun hideDescription() {
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(activity, R.layout.fragment_pod_start)
+        val transition = ChangeBounds()
+        transition.interpolator = AnticipateOvershootInterpolator(1.0f)
+        transition.duration = 1200
+        TransitionManager.beginDelayedTransition(binding.constraintContainer, transition)
+        constraintSet.applyTo(binding.constraintContainer)
+        binding.tap.text = getString(R.string.show_description)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentPodBinding.inflate(inflater, container, false)
+        _binding = FragmentPodStartBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -109,10 +150,10 @@ class PODFragment : Fragment() {
                     val title = serverResponseData.title
                     val explanation = serverResponseData.explanation
                     if (!title.isNullOrEmpty()) {
-                        binding.bottomLayout.bottomSheetDescriptionHeader.text = title
+                        binding.title.text = title
                     }
                     if (!explanation.isNullOrEmpty()) {
-                        binding.bottomLayout.bottomSheetDescription.text = explanation
+                        binding.description.text = explanation
                     }
 
                 }
@@ -129,12 +170,6 @@ class PODFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-
     }
 
     private fun Fragment.toast(string: String?) {

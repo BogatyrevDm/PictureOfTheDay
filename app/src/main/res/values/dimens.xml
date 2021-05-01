@@ -14,4 +14,8 @@
     <dimen name="text_input_layout_width">0dp</dimen>
     <dimen name="button_margin_end">5dp</dimen>
     <dimen name="tv_margin_end">10dp</dimen>
+    <dimen name="header_text_size">40sp</dimen>
+    <dimen name="date_text_size">20sp</dimen>
+    <dimen name="tap_text_size">15sp</dimen>
+    <dimen name="tap_padding_bottom">5dp</dimen>
 </resources>

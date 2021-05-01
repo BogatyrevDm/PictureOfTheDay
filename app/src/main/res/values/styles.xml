@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="header_text_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -8,19 +9,36 @@
         <item name="android:paddingEnd">@dimen/description_header_padding_end</item>
         <item name="android:paddingRight">@dimen/description_header_padding_end</item>
         <item name="android:textColor">@color/description_header_text_color</item>
+        <item name="android:background">?attr/colorSurface</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/header_text_size</item>
     </style>
+
     <style name="text_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/colorSurface</item>
         <item name="android:paddingStart">@dimen/description_padding_start</item>
         <item name="android:paddingLeft">@dimen/description_padding_start</item>
         <item name="android:paddingEnd">@dimen/description_padding_end</item>
         <item name="android:paddingRight">@dimen/description_padding_end</item>
     </style>
+    <style name="tap_text_style">
+        <item name="android:gravity">center</item>
+        <item name="android:background">?attr/backgroundColorCustom</item>
+        <item name="android:paddingBottom">@dimen/tap_padding_bottom</item>
+        <item name="android:textSize">@dimen/tap_text_size</item>
+
+    </style>
     <style name="settings_button_style">
         <item name="android:layout_marginStart">@dimen/button_margin_end</item>
         <item name="android:layout_marginLeft">@dimen/button_margin_end</item>
+    </style>
+
+    <style name="date_style">
+        <item name="android:textSize">@dimen/date_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">?attr/colorOnSecondary</item>
     </style>
 
     <style name="settings_text_view_style">
