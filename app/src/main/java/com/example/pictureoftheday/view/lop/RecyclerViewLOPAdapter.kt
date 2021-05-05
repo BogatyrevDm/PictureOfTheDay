@@ -2,21 +2,29 @@ package com.example.pictureoftheday.view.lop
 
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MotionEventCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pictureoftheday.databinding.FragmentLopItemViewBinding
 import com.example.pictureoftheday.model.lop.Planet
 
-class RecyclerViewNotesAdapter() :
-    RecyclerView.Adapter<RecyclerViewNotesAdapter.NotesViewHolder>(), ItemTouchHelperAdapter {
+class RecyclerViewLOPAdapter(private val dragListener: OnStartDragListener) :
+    RecyclerView.Adapter<RecyclerViewLOPAdapter.LOPViewHolder>(), ItemTouchHelperAdapter {
     private var dataSource: MutableList<Pair<Planet, Boolean>> = mutableListOf()
 
-    inner class NotesViewHolder(val binding: FragmentLopItemViewBinding) :
+    inner class LOPViewHolder(val binding: FragmentLopItemViewBinding) :
         RecyclerView.ViewHolder(binding.root), ItemTouchHelperViewHolder {
         fun onBind(data: Pair<Planet, Boolean>) {
             binding.moveItemUp.setOnClickListener { moveUp() }
             binding.moveItemDown.setOnClickListener { moveDown() }
+            binding.dragHandleImageView.setOnTouchListener { _, event ->
+                if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                    dragListener.onStartDrag(this)
+                }
+                false
+            }
             binding.description.visibility = if (data.second) View.VISIBLE else View.GONE
             binding.title.setOnClickListener { toggleText() }
             binding.title.text = data.first.title
@@ -60,13 +68,13 @@ class RecyclerViewNotesAdapter() :
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LOPViewHolder {
         val binding =
             FragmentLopItemViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return NotesViewHolder(binding)
+        return LOPViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LOPViewHolder, position: Int) {
         holder.onBind(dataSource[position])
     }
 

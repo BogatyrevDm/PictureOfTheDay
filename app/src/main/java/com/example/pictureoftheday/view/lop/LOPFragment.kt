@@ -9,14 +9,19 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pictureoftheday.databinding.FragmentLopBinding
-import com.example.pictureoftheday.model.lop.Planet
 import com.example.pictureoftheday.utils.getListOfPlanets
 
 class LOPFragment : Fragment() {
+    private lateinit var itemTouchHelper:ItemTouchHelper
     private var _binding: FragmentLopBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
-    private var adapter = RecyclerViewNotesAdapter()
+    private var adapter = RecyclerViewLOPAdapter(object:OnStartDragListener{
+        override fun onStartDrag(viewHolder: RecyclerViewLOPAdapter.LOPViewHolder) {
+            itemTouchHelper.startDrag(viewHolder)
+        }
+
+    })
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,7 +49,8 @@ class LOPFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager =
             LinearLayoutManager(context)
-        ItemTouchHelper(ItemTouchHelperCallback(adapter)).attachToRecyclerView(recyclerView)
+        itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter))
+        itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
     companion object {

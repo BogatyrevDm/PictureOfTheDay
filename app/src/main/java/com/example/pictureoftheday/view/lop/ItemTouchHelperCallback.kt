@@ -3,7 +3,7 @@ package com.example.pictureoftheday.view.lop
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
-class ItemTouchHelperCallback(private val adapter: RecyclerViewNotesAdapter) :
+class ItemTouchHelperCallback(private val adapter: RecyclerViewLOPAdapter) :
     ItemTouchHelper.Callback() {
     override fun isLongPressDragEnabled(): Boolean {
         return true
