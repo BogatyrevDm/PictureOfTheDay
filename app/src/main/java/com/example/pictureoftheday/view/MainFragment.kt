@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.pictureoftheday.R
 import com.example.pictureoftheday.databinding.FragmentMainBinding
 import com.example.pictureoftheday.view.epic.EPICMainFragment
+import com.example.pictureoftheday.view.lop.LOPFragment
 import com.example.pictureoftheday.view.pod.PODMainFragment
 import com.example.pictureoftheday.view.settings.SettingsFragment
 
@@ -40,7 +41,11 @@ class MainFragment : Fragment() {
                         ?.commit()
                     true
                 }
-                R.id.bottom_view_mars -> {
+                R.id.bottom_view_planets -> {
+                    activity?.supportFragmentManager?.beginTransaction()
+                        ?.replace(R.id.main_fragment_container, LOPFragment.newInstance())
+                        ?.addToBackStack(null)
+                        ?.commit()
                     true
                 }
                 R.id.bottom_view_weather -> {

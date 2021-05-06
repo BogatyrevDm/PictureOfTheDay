@@ -12,9 +12,9 @@
         android:title="@string/menu_earth_text"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/bottom_view_mars"
+        android:id="@+id/bottom_view_planets"
         android:icon="@drawable/ic_mars"
-        android:title="@string/menu_mars_text"
+        android:title="@string/menu_planets_text"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/bottom_view_weather"
