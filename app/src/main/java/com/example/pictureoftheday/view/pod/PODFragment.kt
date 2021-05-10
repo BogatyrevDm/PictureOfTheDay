@@ -1,10 +1,18 @@
 package com.example.pictureoftheday.view.pod
 
+import android.animation.ArgbEvaluator
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.BackgroundColorSpan
 import android.transition.ChangeBounds
 import android.transition.TransitionManager
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +23,10 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat.getColor
+import androidx.core.graphics.blue
+import androidx.core.graphics.green
+import androidx.core.graphics.red
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -73,6 +85,7 @@ class PODFragment : Fragment() {
         }
     }
 
+    @SuppressLint("ResourceType")
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun showDescription() {
         val constraintSet = ConstraintSet()
@@ -82,7 +95,34 @@ class PODFragment : Fragment() {
         transition.duration = 1200
         TransitionManager.beginDelayedTransition(binding.constraintContainer, transition)
         constraintSet.applyTo(binding.constraintContainer)
-        binding.tap.text = getString(R.string.hide_description)
+
+        val typedValue = TypedValue()
+
+
+        context?.let {
+            val typedValue = TypedValue()
+
+            it.theme.resolveAttribute(R.attr.backgroundColorCustom, typedValue, true);
+            val colorBackground = getColor(context!!, typedValue.resourceId)
+            val colorBackgroundT = Color.argb(0,colorBackground.red, colorBackground.green, colorBackground.blue)
+            val colorAnimation: ValueAnimator = ObjectAnimator.ofObject(ArgbEvaluator(), colorBackground, colorBackgroundT)
+            colorAnimation.duration = 250 // milliseconds
+            colorAnimation.addUpdateListener { animator -> binding.tap.setBackgroundColor(animator.animatedValue as Int) }
+            colorAnimation.start()
+
+            it.theme.resolveAttribute(R.attr.colorSurface, typedValue, true);
+            val color = getColor(it, typedValue.resourceId)
+
+            val description = getString(R.string.hide_description)
+            val spannable = SpannableString(description)
+            spannable.setSpan(
+                BackgroundColorSpan(color),
+                0,
+                description.length,
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+            binding.tap.text = spannable
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
