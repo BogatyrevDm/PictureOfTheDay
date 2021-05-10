@@ -1,6 +1,10 @@
 package com.example.pictureoftheday.view.pod
 
+import android.animation.ArgbEvaluator
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.Spannable
@@ -20,6 +24,9 @@ import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat.getColor
+import androidx.core.graphics.blue
+import androidx.core.graphics.green
+import androidx.core.graphics.red
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -88,13 +95,26 @@ class PODFragment : Fragment() {
         transition.duration = 1200
         TransitionManager.beginDelayedTransition(binding.constraintContainer, transition)
         constraintSet.applyTo(binding.constraintContainer)
-        val description = getString(R.string.hide_description)
-        val spannable = SpannableString(description)
-        val typedValue = TypedValue();
+
+        val typedValue = TypedValue()
+
+
         context?.let {
+            val typedValue = TypedValue()
+
+            it.theme.resolveAttribute(R.attr.backgroundColorCustom, typedValue, true);
+            val colorBackground = getColor(context!!, typedValue.resourceId)
+            val colorBackgroundT = Color.argb(0,colorBackground.red, colorBackground.green, colorBackground.blue)
+            val colorAnimation: ValueAnimator = ObjectAnimator.ofObject(ArgbEvaluator(), colorBackground, colorBackgroundT)
+            colorAnimation.duration = 250 // milliseconds
+            colorAnimation.addUpdateListener { animator -> binding.tap.setBackgroundColor(animator.animatedValue as Int) }
+            colorAnimation.start()
+
             it.theme.resolveAttribute(R.attr.colorSurface, typedValue, true);
             val color = getColor(it, typedValue.resourceId)
 
+            val description = getString(R.string.hide_description)
+            val spannable = SpannableString(description)
             spannable.setSpan(
                 BackgroundColorSpan(color),
                 0,
