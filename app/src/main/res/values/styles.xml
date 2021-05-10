@@ -25,6 +25,7 @@
     </style>
     <style name="tap_text_style">
         <item name="android:gravity">center</item>
+        <item name="android:background">?attr/backgroundColorCustom</item>
         <item name="android:paddingBottom">@dimen/tap_padding_bottom</item>
         <item name="android:textSize">@dimen/tap_text_size</item>
 
