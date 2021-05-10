@@ -3,8 +3,12 @@ package com.example.pictureoftheday.view.pod
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.BackgroundColorSpan
 import android.transition.ChangeBounds
 import android.transition.TransitionManager
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +19,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -73,6 +78,7 @@ class PODFragment : Fragment() {
         }
     }
 
+    @SuppressLint("ResourceType")
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun showDescription() {
         val constraintSet = ConstraintSet()
@@ -82,7 +88,21 @@ class PODFragment : Fragment() {
         transition.duration = 1200
         TransitionManager.beginDelayedTransition(binding.constraintContainer, transition)
         constraintSet.applyTo(binding.constraintContainer)
-        binding.tap.text = getString(R.string.hide_description)
+        val description = getString(R.string.hide_description)
+        val spannable = SpannableString(description)
+        val typedValue = TypedValue();
+        context?.let {
+            it.theme.resolveAttribute(R.attr.colorSurface, typedValue, true);
+            val color = getColor(it, typedValue.resourceId)
+
+            spannable.setSpan(
+                BackgroundColorSpan(color),
+                0,
+                description.length,
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+            binding.tap.text = spannable
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
