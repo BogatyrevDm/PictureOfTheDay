@@ -10,6 +10,7 @@ import com.example.pictureoftheday.databinding.FragmentSettingsBinding
 import com.example.pictureoftheday.utils.BLUE_THEME
 import com.example.pictureoftheday.utils.MAIN_THEME
 import com.example.pictureoftheday.utils.RED_THEME
+import com.example.pictureoftheday.utils.setAppTheme
 import com.google.android.material.radiobutton.MaterialRadioButton
 
 
@@ -50,7 +51,7 @@ class SettingsFragment : Fragment() {
             val activityMain = activity as MainActivity
             activityMain.apply {
                 themeChoosen = theme
-                setAppTheme()
+                setAppTheme(themeChoosen, this)
                 recreate()
             }
 

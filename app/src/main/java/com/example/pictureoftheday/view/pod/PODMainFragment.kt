@@ -1,7 +1,5 @@
 package com.example.pictureoftheday.view.pod
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,13 +34,6 @@ class PODMainFragment : Fragment() {
         binding.tabLayout.getTabAt(0)?.text = context?.getString(R.string.day_before_yesterday_text)
         binding.tabLayout.getTabAt(1)?.text = context?.getString(R.string.yesterday_text)
         binding.tabLayout.getTabAt(2)?.text = context?.getString(R.string.today_text)
-
-        binding.inputLayout.setEndIconOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW).apply {
-                data =
-                    Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
-            })
-        }
     }
 
     override fun onDestroyView() {

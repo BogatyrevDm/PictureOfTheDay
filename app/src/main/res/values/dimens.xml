@@ -24,4 +24,7 @@
     <dimen name="arrow_down_margin">10dp</dimen>
     <dimen name="arrow_up_margin">10dp</dimen>
     <dimen name="drag_handle_margin">10dp</dimen>
+    <dimen name="title_layout_height">80dp</dimen>
+    <dimen name="title_padding_start">10dp</dimen>
+    <dimen name="description_padding">10dp</dimen>
 </resources>

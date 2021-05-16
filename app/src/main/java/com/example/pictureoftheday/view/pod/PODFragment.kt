@@ -89,23 +89,22 @@ class PODFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun showDescription() {
         val constraintSet = ConstraintSet()
-        constraintSet.clone(activity, R.layout.fragment_pod_end)
+        constraintSet.load(activity, R.xml.constraint_set_end)
         val transition = ChangeBounds()
         transition.interpolator = AnticipateOvershootInterpolator(1.0f)
         transition.duration = 1200
         TransitionManager.beginDelayedTransition(binding.constraintContainer, transition)
         constraintSet.applyTo(binding.constraintContainer)
 
-        val typedValue = TypedValue()
-
-
         context?.let {
             val typedValue = TypedValue()
 
             it.theme.resolveAttribute(R.attr.backgroundColorCustom, typedValue, true);
             val colorBackground = getColor(context!!, typedValue.resourceId)
-            val colorBackgroundT = Color.argb(0,colorBackground.red, colorBackground.green, colorBackground.blue)
-            val colorAnimation: ValueAnimator = ObjectAnimator.ofObject(ArgbEvaluator(), colorBackground, colorBackgroundT)
+            val colorBackgroundT =
+                Color.argb(0, colorBackground.red, colorBackground.green, colorBackground.blue)
+            val colorAnimation: ValueAnimator =
+                ObjectAnimator.ofObject(ArgbEvaluator(), colorBackground, colorBackgroundT)
             colorAnimation.duration = 250 // milliseconds
             colorAnimation.addUpdateListener { animator -> binding.tap.setBackgroundColor(animator.animatedValue as Int) }
             colorAnimation.start()
