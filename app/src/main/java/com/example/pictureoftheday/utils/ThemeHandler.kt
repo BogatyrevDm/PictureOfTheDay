@@ -1,5 +1,8 @@
 package com.example.pictureoftheday.utils
 
+import android.content.Context
+import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatActivity
 import com.example.pictureoftheday.R
 
 const val APP_THEME_CHOOSEN = "APP_THEME_CHOOSEN"
@@ -17,4 +20,9 @@ fun getAppTheme(themeID: Int): Int =
         else -> R.style.Theme_PictureOfTheDay
     }
 
+fun getAppThemeChoosen(appThemeDefault: Int, context: Context): Int {
+    val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences(PREFERENCES_NAME, AppCompatActivity.MODE_PRIVATE)
+    return sharedPreferences.getInt(APP_THEME_CHOOSEN, appThemeDefault)
+}
 

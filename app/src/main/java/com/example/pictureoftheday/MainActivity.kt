@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        themeChoosen = getAppThemeChoosen(MAIN_THEME)
+        themeChoosen = getAppThemeChoosen(MAIN_THEME, this)
         themeChoosen?.let {
             setTheme(getAppTheme(it))
         }
@@ -24,12 +24,6 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, MainFragment.newInstance())
                 .commitNow()
         }
-    }
-
-    fun getAppThemeChoosen(appThemeDefault: Int): Int {
-        val sharedPreferences: SharedPreferences =
-            getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE)
-        return sharedPreferences.getInt(APP_THEME_CHOOSEN, appThemeDefault)
     }
 
     fun setAppTheme() {

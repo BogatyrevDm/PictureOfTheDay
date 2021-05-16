@@ -2,17 +2,25 @@ package com.example.pictureoftheday
 
 import android.animation.Animator
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pictureoftheday.databinding.ActivitySplashBinding
+import com.example.pictureoftheday.utils.*
 
 class SplashActivity : AppCompatActivity() {
     var _binding: ActivitySplashBinding? = null
     val binding get() = _binding!!
-
+    var themeChoosen: Int? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        themeChoosen = getAppThemeChoosen(MAIN_THEME, this)
+        themeChoosen?.let {
+            setTheme(getAppTheme(it))
+        }
+
+
         _binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.imageViewSplash.animate().scaleY(-1f).scaleX(-1f)

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.pictureoftheday.MainActivity
+import com.example.pictureoftheday.SplashActivity
 import com.example.pictureoftheday.databinding.FragmentSettingsBinding
 import com.example.pictureoftheday.utils.BLUE_THEME
 import com.example.pictureoftheday.utils.MAIN_THEME
