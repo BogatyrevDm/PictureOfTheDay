@@ -20,6 +20,13 @@ fun getAppTheme(themeID: Int): Int =
         else -> R.style.Theme_PictureOfTheDay
     }
 
+fun setAppTheme(themeChoosen:Int?, context: Context) {
+    with(context.getSharedPreferences(PREFERENCES_NAME, AppCompatActivity.MODE_PRIVATE).edit()) {
+        putInt(com.example.pictureoftheday.utils.APP_THEME_CHOOSEN, themeChoosen!!)
+        apply()
+    }
+}
+
 fun getAppThemeChoosen(appThemeDefault: Int, context: Context): Int {
     val sharedPreferences: SharedPreferences =
         context.getSharedPreferences(PREFERENCES_NAME, AppCompatActivity.MODE_PRIVATE)

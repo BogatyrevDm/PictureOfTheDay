@@ -2,17 +2,14 @@ package com.example.pictureoftheday
 
 import android.animation.Animator
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
-import androidx.appcompat.app.AppCompatActivity
 import com.example.pictureoftheday.databinding.ActivitySplashBinding
 import com.example.pictureoftheday.utils.*
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity() {
     var _binding: ActivitySplashBinding? = null
     val binding get() = _binding!!
-    var themeChoosen: Int? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         themeChoosen = getAppThemeChoosen(MAIN_THEME, this)
