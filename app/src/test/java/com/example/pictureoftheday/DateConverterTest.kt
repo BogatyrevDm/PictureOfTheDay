@@ -18,7 +18,7 @@ class DateConverterTest {
         assertNotNull(getStringDateWithMonthFromEnum(Days.YESTERDAY))
     }
     @Test
-    fun dateConverter_getStringDateFromEnum_ResultsEqual() {
+    fun dateConverter_getStringDateFromEnum_ResultsNotEqual() {
         assertNotEquals(getStringDateFromEnum(Days.TODAY),getStringDateWithMonthFromEnum(Days.TODAY))
     }
 }
